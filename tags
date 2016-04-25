@@ -1,0 +1,179 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ADDRBUFSIZE	defines.h	58;"	d
+ANON_USER	defines.h	50;"	d
+BINDIR	Makefile	/^BINDIR= $(PREFIX)\/bin$/;"	m
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS= $/;"	m
+CMDBUFSIZE	defines.h	54;"	d
+CMD_ABOR	cmdparser.h	/^	CMD_ABOR,$/;"	e	enum:__anon1
+CMD_ACCT	cmdparser.h	/^	CMD_ACCT,$/;"	e	enum:__anon1
+CMD_ALLO	cmdparser.h	/^	CMD_ALLO,$/;"	e	enum:__anon1
+CMD_APPE	cmdparser.h	/^	CMD_APPE,$/;"	e	enum:__anon1
+CMD_CDUP	cmdparser.h	/^	CMD_CDUP,$/;"	e	enum:__anon1
+CMD_CLOSE	cmdparser.h	/^	CMD_CLOSE$/;"	e	enum:__anon1
+CMD_CWD	cmdparser.h	/^	CMD_CWD,$/;"	e	enum:__anon1
+CMD_DELE	cmdparser.h	/^	CMD_DELE,$/;"	e	enum:__anon1
+CMD_EMPTY	cmdparser.h	/^	CMD_EMPTY,$/;"	e	enum:__anon1
+CMD_HELP	cmdparser.h	/^	CMD_HELP,$/;"	e	enum:__anon1
+CMD_LIST	cmdparser.h	/^	CMD_LIST,$/;"	e	enum:__anon1
+CMD_MKD	cmdparser.h	/^	CMD_MKD,$/;"	e	enum:__anon1
+CMD_MODE	cmdparser.h	/^	CMD_MODE,$/;"	e	enum:__anon1
+CMD_NLST	cmdparser.h	/^	CMD_NLST,$/;"	e	enum:__anon1
+CMD_NOOP	cmdparser.h	/^	CMD_NOOP,$/;"	e	enum:__anon1
+CMD_PASS	cmdparser.h	/^	CMD_PASS,$/;"	e	enum:__anon1
+CMD_PASV	cmdparser.h	/^	CMD_PASV,$/;"	e	enum:__anon1
+CMD_PORT	cmdparser.h	/^	CMD_PORT,$/;"	e	enum:__anon1
+CMD_PWD	cmdparser.h	/^	CMD_PWD,$/;"	e	enum:__anon1
+CMD_QUIT	cmdparser.h	/^	CMD_QUIT,$/;"	e	enum:__anon1
+CMD_REIN	cmdparser.h	/^	CMD_REIN,$/;"	e	enum:__anon1
+CMD_REST	cmdparser.h	/^	CMD_REST,$/;"	e	enum:__anon1
+CMD_RETR	cmdparser.h	/^	CMD_RETR,$/;"	e	enum:__anon1
+CMD_RMD	cmdparser.h	/^	CMD_RMD,$/;"	e	enum:__anon1
+CMD_RNFR	cmdparser.h	/^	CMD_RNFR,$/;"	e	enum:__anon1
+CMD_RNTO	cmdparser.h	/^	CMD_RNTO,$/;"	e	enum:__anon1
+CMD_SITE	cmdparser.h	/^	CMD_SITE,$/;"	e	enum:__anon1
+CMD_SMNT	cmdparser.h	/^	CMD_SMNT,$/;"	e	enum:__anon1
+CMD_STAT	cmdparser.h	/^	CMD_STAT,$/;"	e	enum:__anon1
+CMD_STOR	cmdparser.h	/^	CMD_STOR,$/;"	e	enum:__anon1
+CMD_STOU	cmdparser.h	/^	CMD_STOU,$/;"	e	enum:__anon1
+CMD_STRU	cmdparser.h	/^	CMD_STRU,$/;"	e	enum:__anon1
+CMD_SYST	cmdparser.h	/^	CMD_SYST,$/;"	e	enum:__anon1
+CMD_TYPE	cmdparser.h	/^	CMD_TYPE,$/;"	e	enum:__anon1
+CMD_UNKNOWN	cmdparser.h	/^	CMD_UNKNOWN,$/;"	e	enum:__anon1
+CMD_USER	cmdparser.h	/^	CMD_USER,$/;"	e	enum:__anon1
+COMPILE	Makefile	/^COMPILE = $(CC) $(CFLAGS) -c$/;"	m
+DATABUFSIZE	defines.h	55;"	d
+DEFAULT_PORT	defines.h	49;"	d
+EOL	defines.h	51;"	d
+ERR_CONNECT	defines.h	57;"	d
+FALSE	defines.h	/^		FALSE=0$/;"	e	enum:__anon2
+FILE_SEPARATOR	defines.h	48;"	d
+GET_PPA_FROM_LPA	nvme.c	91;"	d	file:
+LIBS	Makefile	/^LIBS = $/;"	m
+LINK	Makefile	/^LINK = $(CC) $(CFLAGS)$/;"	m
+MAXPATHLEN	defines.h	59;"	d
+PORTDELIM	defines.h	60;"	d
+PREFIX	Makefile	/^PREFIX=\/usr\/local$/;"	m
+PROGRAM	Makefile	/^PROGRAM = tinyftp$/;"	m
+RCVBUFSIZE	defines.h	53;"	d
+REPL_110	defines.h	65;"	d
+REPL_120	defines.h	66;"	d
+REPL_125	defines.h	67;"	d
+REPL_150	defines.h	68;"	d
+REPL_200	defines.h	69;"	d
+REPL_202	defines.h	70;"	d
+REPL_211	defines.h	71;"	d
+REPL_211_END	defines.h	73;"	d
+REPL_211_STATUS	defines.h	72;"	d
+REPL_212	defines.h	74;"	d
+REPL_213	defines.h	75;"	d
+REPL_214	defines.h	76;"	d
+REPL_214_END	defines.h	77;"	d
+REPL_215	defines.h	78;"	d
+REPL_220	defines.h	79;"	d
+REPL_221	defines.h	80;"	d
+REPL_225	defines.h	81;"	d
+REPL_226	defines.h	82;"	d
+REPL_227	defines.h	83;"	d
+REPL_230	defines.h	84;"	d
+REPL_250	defines.h	85;"	d
+REPL_257	defines.h	86;"	d
+REPL_257_PWD	defines.h	87;"	d
+REPL_331	defines.h	88;"	d
+REPL_331_ANON	defines.h	89;"	d
+REPL_332	defines.h	90;"	d
+REPL_350	defines.h	91;"	d
+REPL_421	defines.h	92;"	d
+REPL_425	defines.h	93;"	d
+REPL_426	defines.h	94;"	d
+REPL_450	defines.h	95;"	d
+REPL_451	defines.h	96;"	d
+REPL_452	defines.h	97;"	d
+REPL_500	defines.h	98;"	d
+REPL_501	defines.h	99;"	d
+REPL_502	defines.h	100;"	d
+REPL_503	defines.h	101;"	d
+REPL_504	defines.h	102;"	d
+REPL_530	defines.h	103;"	d
+REPL_532	defines.h	104;"	d
+REPL_550	defines.h	105;"	d
+REPL_551	defines.h	106;"	d
+REPL_552	defines.h	107;"	d
+REPL_553	defines.h	108;"	d
+RETRY_MINUTES	defines.h	52;"	d
+SENDBUFSIZE	defines.h	56;"	d
+TRUE	defines.h	/^		TRUE=1,$/;"	e	enum:__anon2
+_	connections.c	/^const char * _(const char* message) {$/;"	f
+_CMDPARSER_H	cmdparser.h	25;"	d
+_DEFINES_H	defines.h	25;"	d
+_FILEUTILS_H	fileutils.h	25;"	d
+_cmp1	cmdparser.h	/^static bool _cmp1(char c1,char *d,char *d1) {$/;"	f
+_cmp2	cmdparser.h	/^static bool _cmp2(char c1,char c2,char *d,char *d1) {$/;"	f
+_cmp3	cmdparser.h	/^static bool _cmp3(char c1,char c2,char c3,char *d,char *d1) {$/;"	f
+assign_option	opts.c	/^int assign_option(current_option, arg,copts,len)$/;"	f
+bool	defines.h	32;"	d
+change_dir	fileutils.c	/^bool change_dir(int sock,const char *parent_dir,char *current_dir,char *virtual_dir,char *data_buff) {$/;"	f
+chrootdir	defines.h	/^		char *chrootdir;$/;"	m	struct:cmd_opts
+close_conn	connections.c	/^void close_conn(int sock_fd) {$/;"	f
+close_connection	connections.c	/^int close_connection(int connection) {$/;"	f
+cmd_opts	defines.h	/^	typedef struct cmd_opts {$/;"	s
+cmd_opts	defines.h	/^	}cmd_opts;$/;"	t	typeref:struct:cmd_opts
+cmp2	cmdparser.h	/^static bool cmp2(char c1,char c2,char d1,char d2) {$/;"	f
+cmp3	cmdparser.h	/^static bool cmp3(char c1,char c2,char c3,char d1,char d2,char d3) {$/;"	f
+create_socket	connections.c	/^int create_socket(struct cmd_opts *opts) {$/;"	f
+daemonize	defines.h	/^		bool daemonize;$/;"	m	struct:cmd_opts
+delete_file	fileutils.c	/^bool delete_file(int sock,const char *delete_file) {$/;"	f
+dir_exists	opts.c	/^int dir_exists(const char *path) {$/;"	f
+do_nothing	fileutils.c	/^static void do_nothing() { if(TRUE==FALSE) do_nothing();}$/;"	f	file:
+ensure_dir_exists	fileutils.c	/^static DIR * ensure_dir_exists(int sock,const char*path) {$/;"	f	file:
+g_BioTarget	nvme.c	/^static NvmeBioTarget *g_BioTarget;$/;"	v	file:
+get_command	connections.c	/^int get_command(int conn_fd,char *read_buff1,char *data_buff) {$/;"	f
+get_file_info	fileutils.c	/^static bool get_file_info(const char *file_name, char *line){$/;"	f	file:
+get_file_info_stat	fileutils.c	/^static bool get_file_info_stat(const char *file_name, char *line,struct stat *s_buff){$/;"	f	file:
+get_type	connections.c	/^int get_type(const char *type) {$/;"	f
+interract	connections.c	/^int interract(int conn_fd,cmd_opts *opts) {$/;"	f
+is_special_dir	fileutils.c	/^static bool is_special_dir(const char *dir) {$/;"	f	file:
+listen_addr	defines.h	/^		char *listen_addr;$/;"	m	struct:cmd_opts
+listen_any	defines.h	/^		bool listen_any;$/;"	m	struct:cmd_opts
+main	main.c	/^int main(int argc,char *argv[])$/;"	f
+make_client_connection	connections.c	/^int make_client_connection(int sock_fd,int client_port,const char* client_addr) {$/;"	f
+make_dir	fileutils.c	/^bool make_dir(int sock,const char *new_dir,char *reply) {$/;"	f
+max_conn	defines.h	/^		int max_conn;$/;"	m	struct:cmd_opts
+max_limit_notify	connections.c	/^bool max_limit_notify;$/;"	v
+nvme_add_prp	nvme.c	/^int nvme_add_prp (nvme_bio *bio, uint64_t prp, uint64_t trans_len)$/;"	f
+nvme_bio_create	nvme.c	/^nvme_bio *nvme_bio_create (uint64_t nprps)$/;"	f
+nvme_bio_deinit	nvme.c	/^void nvme_bio_deinit (NvmeBioTarget *target)$/;"	f
+nvme_bio_destroy	nvme.c	/^void nvme_bio_destroy (nvme_bio **bio)$/;"	f
+nvme_bio_init	nvme.c	/^int nvme_bio_init (NvmeCtrl *n)$/;"	f
+nvme_bio_mmap_prps	nvme.c	/^int nvme_bio_mmap_prps (nvme_bio *bio)$/;"	f
+nvme_bio_request	nvme.c	/^int nvme_bio_request (nvme_bio *bio)$/;"	f
+open_connections	connections.c	/^int open_connections;$/;"	v
+pars_cmd_args	opts.c	/^int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {$/;"	f
+parse_input	cmdparser.h	/^static int parse_input(char *input_buff,char *data_buff) {$/;"	f
+parse_port_data	connections.c	/^int parse_port_data(char *data_buff,char *client_addr) {$/;"	f
+port	defines.h	/^		int port;$/;"	m	struct:cmd_opts
+ppa_calc	nvme.c	/^static inline ddr_addr_u ppa_calc (uint64_t lpa)$/;"	f	file:
+print_help	connections.c	/^void print_help(int sock) {$/;"	f
+print_help	opts.c	/^void print_help() {$/;"	f
+raiseerr	connections.c	/^int raiseerr(int err_code) {$/;"	f
+remove_dir	fileutils.c	/^bool remove_dir(int sock,const char *removed_dir) {$/;"	f
+rename_fr	fileutils.c	/^bool rename_fr(int sock,const char *from,const char *to) {$/;"	f
+retrieve_file	fileutils.c	/^bool retrieve_file(int sock, int client_sock, int type, const char * file_name) {$/;"	f
+send_repl	connections.c	/^int send_repl(int send_sock,char *msg) {$/;"	f
+send_repl_client	connections.c	/^int send_repl_client(int send_sock,char *msg) {$/;"	f
+send_repl_client_len	connections.c	/^int send_repl_client_len(int send_sock,char *msg,int len) {$/;"	f
+send_repl_len	connections.c	/^int send_repl_len(int send_sock,char *msg,int len) {$/;"	f
+set_data	cmdparser.h	/^static void set_data(char *src,char *dest) {$/;"	f
+sig_chld_handler	connections.c	/^void sig_chld_handler(void) {$/;"	f
+stat_file	fileutils.c	/^bool stat_file(int sock, const char *file_path,char *reply) {$/;"	f
+store_file	fileutils.c	/^bool store_file(int sock, int client_sock, int type, const char * file_name) {$/;"	f
+stou_file	fileutils.c	/^bool stou_file(int sock, int client_sock, int type, int fpr) {$/;"	f
+toint	opts.c	/^int toint(str,strict) $/;"	f
+userid	defines.h	/^		int userid;$/;"	m	struct:cmd_opts
+write_file	fileutils.c	/^static int write_file(char *line,const char *mode,int num,const char *user,const char * group,int size,const char *date,const char*fl_name) {$/;"	f	file:
+write_list	fileutils.c	/^bool write_list(int sock, int client_sock, const char *current_dir) {$/;"	f
