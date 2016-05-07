@@ -68,7 +68,8 @@ enum {
 	CMD_NOOP,
 	CMD_UNKNOWN,
 	CMD_EMPTY,
-	CMD_CLOSE
+	CMD_CLOSE,
+	CMD_UTIL
 };
 
 static char *command_array[] ={

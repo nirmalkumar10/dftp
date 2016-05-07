@@ -47,6 +47,12 @@ int raiseerr(int err_code) {
 	return -1;
 }
 
+struct clientinfo
+{
+char client_name[1024];
+int cmd;
+char request[1024];
+};
 /** 
  * This is neccessary for future use of glib and gettext based localization.
  */
@@ -54,6 +60,7 @@ const char * _(const char* message) {
 	return message;
 }
 
+char client_info[1024];
 /**
  * Guess the transfer type, given the client requested type.
  * Actually in unix there is no difference between binary and 
@@ -115,6 +122,51 @@ int make_client_connection(int sock_fd,int client_port,const char* client_addr) 
  * Although it is the same as close(sock_fd), in the future it can be used for 
  * logging some stats about active and closed sessions.
  */
+struct clientinfo;
+
+int make_server_connection(struct clientinfo data_buff)
+{
+	int sock;
+	long double CpuLoad;
+	struct clientinfo util;
+	util.cmd = CMD_UTIL; 
+	int serverport = 8200;
+	char *server_addr = "10.1.10.29";
+	char data[40] ;//= "data element found";
+	struct sockaddr_in server;
+	memset(&server,'0',sizeof(server));
+	server.sin_family = AF_INET;
+	server.sin_port = htons(8200);
+	server.sin_addr.s_addr = inet_addr("10.1.10.29");
+	if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
+		printf("could not open socket\r\n");
+	
+	if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
+	printf("connect failed \r\n");
+
+//	while(1){
+	write(sock,&util,sizeof(util));
+	read(sock,&CpuLoad,sizeof(CpuLoad));
+	printf("Current Load:%Lf\r\n",CpuLoad);
+//	if(CpuLoad < 1)
+//	break;
+//	}
+	close(sock);	
+	memset(&server,'0',sizeof(server));
+	server.sin_family = AF_INET;
+	server.sin_port = htons(8200);
+	server.sin_addr.s_addr = inet_addr("10.1.10.29");
+	if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
+		printf("could not open socket\r\n");
+	
+	if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
+	printf("connect failed \r\n");
+
+
+	write(sock,&data_buff,sizeof(data_buff));
+	return sock;
+}
+
 void close_conn(int sock_fd) {
 	if (close(sock_fd) < 0) { 
 		raiseerr (5);
@@ -262,13 +314,18 @@ void print_help(int sock) {
  * certain action is performed. After that we wait for the next client message
  * 
  */
+
+
 int interract(int conn_fd,cmd_opts *opts) {
 	static int BANNER_LEN = strlen(REPL_220);
 	int userid = opts->userid;
-	int client_fd=-1;
+	int client_fd=-1,ssock;
 	int len;
 	int _type ;
 	int type = 2; // ASCII TYPE by default
+
+	struct clientinfo client;
+
 	if(userid>0) {
 		int status = setreuid(userid,userid);
 		if(status != 0) {
@@ -354,6 +411,7 @@ int interract(int conn_fd,cmd_opts *opts) {
 			case CMD_PORT:
 				if(!is_loged) send_repl(conn_fd,REPL_530);
 				else {
+					strcpy(client.client_name,data_buff);
 					client_port = parse_port_data(data_buff,client_addr);
 					if(client_port<0) {
 						send_repl(conn_fd,REPL_501);
@@ -378,7 +436,8 @@ int interract(int conn_fd,cmd_opts *opts) {
 			case CMD_LIST:
 				if(!is_loged) send_repl(conn_fd,REPL_530);
 				else {
-					client_fd = make_client_connection(conn_fd, client_port,client_addr);
+					client.cmd =result;	
+					client_fd = make_server_connection(client);//make_client_connection(conn_fd, client_port,client_addr);
 					if(client_fd!=-1){
 						write_list(conn_fd,client_fd,current_dir);
 					}
@@ -388,14 +447,18 @@ int interract(int conn_fd,cmd_opts *opts) {
 			case CMD_RETR:
 				if(!is_loged) send_repl(conn_fd,REPL_530);
 				else {
+					client.cmd  = result;
+					strcpy(client.request,data_buff);
 					if(data_buff==NULL || strlen(data_buff)==0 || data_buff[0]=='\0') {
 						send_repl(conn_fd,REPL_501);
 					} else {
-						client_fd = make_client_connection(conn_fd, client_port,client_addr);
-						if(client_fd!=-1){
-							retrieve_file(conn_fd,client_fd, type,data_buff);
+						ssock = make_server_connection(client);
+						if(ssock != -1){
+						send_repl(conn_fd,REPL_150);
 						}
-						client_fd = -1;
+						read(ssock,data_buff,sizeof(data_buff));
+						printf("Response from backup server:%s\r\n",data_buff);
+						send_repl(conn_fd,data_buff);
 					}
 				}
 				break;
@@ -413,14 +476,18 @@ int interract(int conn_fd,cmd_opts *opts) {
 			case CMD_STOR:
 				if(!is_loged) send_repl(conn_fd,REPL_530);
 				else {
+					client.cmd = result;
+					strcpy(client.request,data_buff);
 					if(data_buff==NULL || strlen(data_buff)==0 || data_buff[0]=='\0') {
 						send_repl(conn_fd,REPL_501);
 					} else {
-						client_fd = make_client_connection(conn_fd, client_port,client_addr);
-						if(client_fd!=-1){
-							store_file(conn_fd,client_fd, type,data_buff);
+						ssock = make_server_connection(client);
+						if(ssock != -1){
+							send_repl(conn_fd,REPL_150);
 						}
-						client_fd = -1;
+						read(ssock,data_buff,sizeof(data_buff));
+						printf("Response from backup server:%s\r\n",data_buff);
+						send_repl(conn_fd,data_buff);
 					}
 				}
 				break;
@@ -644,7 +711,6 @@ int create_socket(struct cmd_opts *opts) {
 	int sock = 0;
 	int pid  = 0;
 	open_connections=0;
-	
 	struct sockaddr_in servaddr;
 	pid = getuid();	
 	if(pid != 0 && opts->port <= 1024)
@@ -699,7 +765,6 @@ int create_socket(struct cmd_opts *opts) {
 
 	for (;;) {
 		max_limit_notify = FALSE;
-		
 		if ((connection = accept(sock, (struct sockaddr *) &servaddr, &servaddr_len)) < 0) {
 			raiseerr(3);
 			return -1;

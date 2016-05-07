@@ -192,7 +192,7 @@ bool write_list(int sock, int client_sock, const char *current_dir) {
 		}
 		return FALSE;
 	}
-	DIR *dir = ensure_dir_exists(sock,current_dir);
+/*	DIR *dir = ensure_dir_exists(sock,current_dir);
 	if(dir==NULL) {
 		if(sock!=client_sock) {
 			close(client_sock);
@@ -221,7 +221,7 @@ bool write_list(int sock, int client_sock, const char *current_dir) {
 	}
 	//free(line);
 	closedir(dir);
-	return TRUE;
+	return TRUE;*/
 }
 
 /**
