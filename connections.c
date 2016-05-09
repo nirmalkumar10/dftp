@@ -47,6 +47,18 @@ int raiseerr(int err_code) {
 	return -1;
 }
 
+#define NUMBER_OF_FILES 4
+#define MAX_FILENAME 255
+#define NUMBER_OF_SERVERS 4
+#define MAX_SERVERNAME 20
+
+struct map{
+char filename[MAX_FILENAME];
+int numservers;
+char server[NUMBER_OF_SERVERS][MAX_SERVERNAME];
+};
+
+	struct map *dump;
 struct clientinfo
 {
 char client_name[1024];
@@ -126,46 +138,79 @@ struct clientinfo;
 
 int make_server_connection(struct clientinfo data_buff)
 {
-	int sock;
+	int sock,i,j,server_not_found;
 	long double CpuLoad;
 	struct clientinfo util;
-	util.cmd = CMD_UTIL; 
-	int serverport = 8200;
-	char *server_addr = "10.1.10.29";
-	char data[40] ;//= "data element found";
-	struct sockaddr_in server;
-	memset(&server,'0',sizeof(server));
-	server.sin_family = AF_INET;
-	server.sin_port = htons(8200);
-	server.sin_addr.s_addr = inet_addr("10.1.10.29");
-	if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
-		printf("could not open socket\r\n");
-	
-	if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
-	printf("connect failed \r\n");
+	util.cmd = CMD_UTIL;
 
-//	while(1){
-	write(sock,&util,sizeof(util));
-	read(sock,&CpuLoad,sizeof(CpuLoad));
-	printf("Current Load:%Lf\r\n",CpuLoad);
-//	if(CpuLoad < 1)
-//	break;
-//	}
-	close(sock);	
-	memset(&server,'0',sizeof(server));
-	server.sin_family = AF_INET;
-	server.sin_port = htons(8200);
-	server.sin_addr.s_addr = inet_addr("10.1.10.29");
-	if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
-		printf("could not open socket\r\n");
-	
-	if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
-	printf("connect failed \r\n");
+	for(i=0;i<NUMBER_OF_FILES;i++){
+		printf("filename:%s\r\n actual request%s",dump[i].filename,data_buff.request);
+		if(!strcmp(dump[i].filename,data_buff.request))
+		{
+			for(j=0;j<dump[i].numservers;j++)
+			{ 
+				if(dump[i].server[j]) {
+				struct sockaddr_in server;
+				memset(&server,'0',sizeof(server));
+				server.sin_family = AF_INET;
+				server.sin_port = htons(8200);
+				server.sin_addr.s_addr = inet_addr(dump[i].server[j]);
+				if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
+					printf("could not open socket\r\n");
+				printf("Connecting to server:%s\r\n",dump[i].server[j]);
+				if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
+					printf("connect failed \r\n");
+
+				write(sock,&util,sizeof(util));
+				read(sock,&CpuLoad,sizeof(CpuLoad));
+				printf("cpu load:%Lf\r\n",CpuLoad);
+				close(sock);
+				}else{
+				server_not_found =1;
+				}
+
+			}
+			}
+		if(server_not_found)
+		return -1;
+		}
+
+		int serverport = 8200;
+		char *server_addr = "10.0.0.32";
+		char data[40] ;//= "data element found";
+		struct sockaddr_in server;
+		memset(&server,'0',sizeof(server));
+/*		server.sin_family = AF_INET;
+		server.sin_port = htons(8200);
+		server.sin_addr.s_addr = inet_addr("10.0.0.32");
+		if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
+			printf("could not open socket\r\n");
+
+		if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
+			printf("connect failed \r\n");
+
+		//	while(1){
+		write(sock,&util,sizeof(util));
+		read(sock,&CpuLoad,sizeof(CpuLoad));
+		printf("Current Load:%Lf\r\n",CpuLoad);
+		//	if(CpuLoad < 1)
+		//	break;
+		//	}
+		close(sock);	*/
+		memset(&server,'0',sizeof(server));
+		server.sin_family = AF_INET;
+		server.sin_port = htons(8200);
+		server.sin_addr.s_addr = inet_addr("10.0.0.32");
+		if ((sock = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) < 0)
+			printf("could not open socket\r\n");
+
+		if(connect(sock,(struct sockaddr *)&server,sizeof(server)) < 0)
+			printf("connect failed \r\n");
 
 
-	write(sock,&data_buff,sizeof(data_buff));
-	return sock;
-}
+		write(sock,&data_buff,sizeof(data_buff));
+		return sock;
+	}
 
 void close_conn(int sock_fd) {
 	if (close(sock_fd) < 0) { 
@@ -785,5 +830,56 @@ int create_socket(struct cmd_opts *opts) {
 			close(sock);
 			assert(0);
 		}
+	}
+}
+
+int update_server_info(struct cmd_opts *opts)
+{
+
+	int i,j,read =1,numfiles=0;
+	size_t len;
+	char *line;
+	FILE *fp;
+	char *filename,*servername;
+
+	FILE *fsave = fopen(opts->fsave,"rb");
+	dump = (struct map *)malloc(sizeof(struct map) * NUMBER_OF_FILES);
+
+	if(fsave == NULL)
+	{
+		FILE *fp = fopen(opts->filename,"r");
+		if(fp != NULL) {
+		while(1){
+			read = getline(&line,&len,fp);
+			if(read == -1)
+				break;
+			++numfiles;
+		}
+
+		rewind(fp);
+
+
+
+		for(i=0;i<numfiles;i++)
+		{
+			getline(&line,&len,fp);
+			filename = strtok(line," ");
+			strcpy(dump[i].filename,filename);
+			for(j=0;j<NUMBER_OF_SERVERS;j++)
+			{
+				servername = strtok(NULL," ");
+				if(servername){
+					dump[i].numservers++;
+					strcpy(dump[i].server[j],servername);
+				}else{
+					break;
+				}
+			}
+		}
+
+		fclose(fp);
+	}else{
+	printf("Error opening server details:%s",opts->filename);
+	}
 	}
 }

@@ -37,6 +37,7 @@ int main(int argc,char *argv[])
 	int result = pars_cmd_args(copts,argc,argv);
 	switch(result) {
 		case 0:
+			update_server_info(copts);
 			return create_socket(copts);
 		case -1:
 			break;

@@ -42,6 +42,8 @@ extern "C"
 		int max_conn;
 		int userid;
 		char *chrootdir;
+		char *filename;
+		char *fsave;
 	}cmd_opts;
 	
 	int toint(const char*,bool);

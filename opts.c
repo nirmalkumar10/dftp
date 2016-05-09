@@ -51,6 +51,8 @@ int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {
 	copts->chrootdir    = "./";
 	copts->max_conn     = 5;
 	copts->listen_addr  = NULL;
+	copts->filename     = "serverlist.txt";
+	copts->fsave 	    = "serverbin";
 	
 	// remember the current read options. e.g. if the last read argument was "-l"
 	// current option is "limit", so we are waiting for a number of concurrent connections.
@@ -65,6 +67,11 @@ int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {
 			if(argv[i][0]=='-') {
 				switch(argv[i][1]) {
 					
+					case 'f':
+						if(len > 2){
+							assign_option('f',argv[i]+2,copts,len-2);
+						}
+							
 					case 'l': // limit
 						if(len>2) {
 							assign_option('l', argv[i]+2, copts,len-2);
@@ -133,6 +140,10 @@ int assign_option(current_option, arg,copts,len)
 		{
 	int p;
 	switch(current_option) {
+		case 'f':
+			copts->filename = (char *)malloc(len*sizeof(char));
+			strcpy(copts->filename,arg);
+			break;
 		case 's': // server address
 			if(arg[0]=='0' || arg[0]=='*' || strcmp(arg,"0.0.0.0")==0) {
 				copts->listen_any = TRUE;
