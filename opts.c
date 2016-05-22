@@ -58,7 +58,7 @@ int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {
 	// current option is "limit", so we are waiting for a number of concurrent connections.
 	int current_option=0; 
 	for(i=1;i<argc;i++) {
-	//	printf("arg[%d]:%p\r\n",i,&argv[i]);
+//		printf("arg[%d]:%p\r\n",i,&argv[i]);
 		len = strlen(argv[i]);
 	//	printf("length:%d\r\n",len);
 		if(len <1)
@@ -66,11 +66,23 @@ int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {
 		if(current_option==0) {
 			if(argv[i][0]=='-') {
 				switch(argv[i][1]) {
+					case 'n':
+						if(len >2){
+							assign_option('n',argv[i]+2,copts,len-2);
+							current_option = 0;
+						}else{
+						current_option = 'n';
+						}
+					break;
 					
 					case 'f':
 						if(len > 2){
 							assign_option('f',argv[i]+2,copts,len-2);
-						}
+							current_option = 0;
+						}else{
+						current_option = 'f';
+					}
+					break;
 							
 					case 'l': // limit
 						if(len>2) {
@@ -79,6 +91,7 @@ int pars_cmd_args(struct cmd_opts *copts,int argc,char *argv[]) {
 						} else {
 							current_option = 'l';
 						}
+					break;
 					break;
 					case 'u': //run as user id
 						if(len>2) {
@@ -140,6 +153,10 @@ int assign_option(current_option, arg,copts,len)
 		{
 	int p;
 	switch(current_option) {
+		case 'n':
+			copts->sfile = (char *)malloc(len*sizeof(char));
+			strcpy(copts->sfile,arg);
+			break;
 		case 'f':
 			copts->filename = (char *)malloc(len*sizeof(char));
 			strcpy(copts->filename,arg);

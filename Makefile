@@ -1,17 +1,17 @@
 PREFIX=/usr/local
 BINDIR= $(PREFIX)/bin
 LIBS = 
-PROGRAM = tinyftp
+PROGRAM = dftp
 CC=gcc
 CFLAGS= 
-COMPILE = $(CC) $(CFLAGS) -c
-LINK = $(CC) $(CFLAGS)
+COMPILE = $(CC) $(CFLAGS) -c -lpthread
+LINK = $(CC) $(CFLAGS) 
 
 
 all: $(PROGRAM)
 
 $(PROGRAM):  main.o opts.o fileutils.o connections.o
-	$(LINK) main.o opts.o fileutils.o connections.o -o $(PROGRAM)
+	$(LINK) main.o opts.o fileutils.o connections.o -o $(PROGRAM) -lpthread
 main.o: main.c
 	$(COMPILE) main.c
 opts.o: opts.c

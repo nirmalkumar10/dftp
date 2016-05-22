@@ -91,7 +91,9 @@ enum {
         CMD_UNKNOWN,
         CMD_EMPTY,
         CMD_CLOSE,
-	CMD_UTIL
+	CMD_UTIL,
+	CMD_SER,
+	CMD_CLI
 };
 
 int parse_port_data(char *,char *);
@@ -275,6 +277,29 @@ int main(int argc, char **argv) {
 	CpuLoad = cpu_load();
 	write(masterfd,&CpuLoad,sizeof(CpuLoad));	
 	break;	
+	}
+	case CMD_SER:{
+	char readp[1024];
+	printf("asking me to be server to connect to :%s\r\n",client.client_name);
+	int isock=-1;
+        struct sockaddr_in servaddr;
+	FILE *fp;
+        servaddr.sin_family = AF_INET;
+        servaddr.sin_addr.s_addr = inet_addr(client.client_name);
+        servaddr.sin_port = htons(8207);
+        if ((isock = socket (PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
+                return -1;
+        }
+        int status = connect (isock, (struct sockaddr *)&servaddr, sizeof (servaddr));
+	fp =fopen(client.request,"r");
+	while(!feof(fp))
+	{
+	fread(readp,sizeof(readp),1,fp);
+	write(isock,readp,sizeof(readp));
+	}
+	fclose(fp);
+	close(isock);
+	break;
 	}
 	}
 	
