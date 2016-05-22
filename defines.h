@@ -44,6 +44,7 @@ extern "C"
 		char *chrootdir;
 		char *filename;
 		char *fsave;
+		char *sfile;
 	}cmd_opts;
 	
 	int toint(const char*,bool);
